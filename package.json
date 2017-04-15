@@ -1,0 +1,30 @@
+{
+    "name": "dir-tree",
+    "version": "0.1.0",
+    "description": "Retrieves the directory structure of a path.",
+    "keywords": ["directory", "tree", "structure"],
+    "author": "Pascal Hüttermann (https://github.com/nemoxps)",
+    "license": "MIT",
+    "main": "index.js",
+    "engines": {
+        "node": ">=7.7.0"
+    },
+    "dependencies": {
+        "chalk": "^1.1.3",
+        "chalkify": "nemoxps/chalkify",
+        "fsp": "nemoxps/fsp"
+    },
+    "devDependencies": {
+        "eslint": "^3.19.0",
+        "eslint-config-nemoxps": "nemoxps/eslint-config-nemoxps",
+        "tape": "^4.6.3",
+        "tap-spec": "^4.1.1",
+        "mock-fs": "^4.2.0"
+    },
+    "scripts": {
+        "lint": "eslint ./",
+        "test": "tape \"tests/**/*.test.js\" | tap-spec"
+    },
+    "repository": "nemoxps/dir-tree",
+    "bugs": "https://github.com/nemoxps/dir-tree/issues"
+}
