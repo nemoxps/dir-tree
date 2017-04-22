@@ -23,7 +23,7 @@
     },
     "scripts": {
         "lint": "eslint ./",
-        "test": "tape \"tests/**/*.test.js\" | tap-spec"
+        "test": "tape \"test/**/*.test.js\" | tap-spec"
     },
     "repository": "nemoxps/dir-tree",
     "bugs": "https://github.com/nemoxps/dir-tree/issues"
