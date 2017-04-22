@@ -7,8 +7,6 @@ Unfortunately the name `dir-tree` is already taken at npm (and I don't have a be
 $ npm install nemoxps/dir-tree --save
 ```
 
-**Note**: `dir-tree` uses ES8 async/await, so have a appropriate node version installed.
-
 ## API
 `dir-tree` provides 2 functions to retrieve a directory tree.
 ```js
@@ -29,14 +27,14 @@ dirTree(dirPath, depth)
 dirTree.of(dirList)
 ```
 
-A directory object has the following properties:
+A Directory object has the following properties:
 * `{string} path`: The directory's path
 * `{string} name`: The directory's name
 * `{Directory[]} dirs`: An array of sub-directories
 * `{File[]} files`: An array of sub-files
 * `{number} size`: The directory's size (in bytes)
 * `{boolean} isSearched`: Indicates whether `dirs` and `files` contain the sub-directories and sub-files or not
-* `{boolean} isFullySearched`: Indicates whether every sub-(sub-)directory is searched or not
+* `{boolean} isFullySearched`: Indicates whether every sub-(sub-\*)directory is searched or not
 * `{string} type = 'directory'`: Shows that the object is a directory
 
 And methods:
@@ -45,10 +43,10 @@ And methods:
  * @param {boolean} [useColors=false] `true` if the output should be colorful.
  * @returns {string} The stringified Directory.
  */
-dir.toString(useColors)
+Directory.prototype.toString(useColors)
 
 /*
-dir.toString() outputs something like this (the separator depends on the OS):
+toString() outputs something like this (the separator depends on the OS):
 rootPath/
 ├── dir-1/
 │   ├── dir-11/
@@ -67,16 +65,16 @@ rootPath/
  * @param {boolean} [thisInclusive=true] `true` if this Directory should appear in the output.
  * @returns {Directory[]} The list of directories.
  */
-dir.getDirectories(thisInclusive)
+Directory.prototype.getDirectories(thisInclusive)
 ```
 ```js
 /**
  * @returns {File[]} The list of files.
  */
-dir.getFiles()
+Directory.prototype.getFiles()
 ```
 
-A file object has the following properties:
+A File object has the following properties:
 * `{string} path`: The file's path
 * `{string} name`: The file's basename (name + ext)
 * `{string} ext`: The file's extension
