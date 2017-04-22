@@ -1,13 +1,13 @@
 {
     "name": "dir-tree",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Retrieves the directory structure of a path.",
     "keywords": ["directory", "tree", "structure"],
     "author": "Pascal Hüttermann (https://github.com/nemoxps)",
     "license": "MIT",
-    "main": "index.js",
+    "main": "build/index.js",
     "engines": {
-        "node": ">=7.7.0"
+        "node": ">=6"
     },
     "dependencies": {
         "chalk": "^1.1.3",
@@ -15,13 +15,16 @@
         "fsp": "nemoxps/fsp"
     },
     "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-preset-env": "^1.4.0",
         "eslint": "^3.19.0",
         "eslint-config-nemoxps": "nemoxps/eslint-config-nemoxps",
+        "mock-fs": "^4.2.0",
         "tape": "^4.6.3",
-        "tap-spec": "^4.1.1",
-        "mock-fs": "^4.2.0"
+        "tap-spec": "^4.1.1"
     },
     "scripts": {
+        "build": "babel src/ -d build/",
         "lint": "eslint ./",
         "test": "tape \"test/**/*.test.js\" | tap-spec"
     },

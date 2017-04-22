@@ -83,7 +83,7 @@ test('dirTree.of', (t) => {
     }).catch(t.error).then(t.end);
 });
 
-test('Directory.toString', (t) => {
+test('Directory#toString', (t) => {
     dirTree('./', true).then((tree) => {
         let sep = path.sep;
         t.equal(tree.toString(), `
@@ -102,7 +102,7 @@ ${process.cwd()}${sep}
     }).catch(t.error).then(t.end);
 });
 
-test('Directory.getDirectories', (t) => {
+test('Directory#getDirectories', (t) => {
     dirTree('./', true).then((tree) => {
         let dirNames = [path.basename(process.cwd()), 'dir-1', 'dir-11', 'dir-12', 'dir-13', 'dir-2'];
         let getDirName = (dir) => dir.name;
@@ -111,7 +111,7 @@ test('Directory.getDirectories', (t) => {
     }).catch(t.error).then(t.end);
 });
 
-test('Directory.getFiles', (t) => {
+test('Directory#getFiles', (t) => {
     dirTree('./', true).then((tree) => {
         let fileNames = ['file-1.txt', 'file-2.txt', 'file-1-1.txt', 'file-11-1.txt', 'file-2-1.txt'];
         let getFileName = (file) => file.name;
