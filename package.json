@@ -20,13 +20,13 @@
         "eslint": "^3.19.0",
         "eslint-config-nemoxps": "nemoxps/eslint-config-nemoxps",
         "mock-fs": "^4.2.0",
-        "tape": "^4.6.3",
+        "blue-tape": "^1.0.0",
         "tap-spec": "^4.1.1"
     },
     "scripts": {
         "build": "babel src/ -d build/",
         "lint": "eslint ./",
-        "test": "tape \"test/**/*.test.js\" | tap-spec"
+        "test": "blue-tape \"test/**/*.test.js\" | tap-spec"
     },
     "repository": "nemoxps/dir-tree",
     "bugs": "https://github.com/nemoxps/dir-tree/issues"

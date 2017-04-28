@@ -1,7 +1,7 @@
 let EOL = require('os').EOL;
 let path = require('path');
 
-let test = require('tape');
+let test = require('blue-tape');
 let mock = require('mock-fs');
 
 let dirTree = require('../');
@@ -25,8 +25,8 @@ mock({
     'file-2.txt': 'file-2',
 }, { createTmp: false });
 
-test('dirTree', (t) => {
-    Promise.all([
+test('dirTree', async (t) => {
+    await Promise.all([
         dirTree('./').then((tree) => {
             let cwd = process.cwd();
             
@@ -63,11 +63,14 @@ test('dirTree', (t) => {
             t.equal(tree.dirs[0].size, 17);
             t.equal(tree.dirs[0].dirs[0].isSearched, true);
         }),
-    ]).then(() => {}).catch(t.error).then(t.end);
+        
+        t.shouldReject(dirTree('./', -1), /^(?:.*?Error: )dirTree:/),
+        t.shouldReject(dirTree('file-1.txt'), /^(?:.*?Error: )dirTree:/),
+    ]);
 });
 
-test('dirTree.of', (t) => {
-    dirTree.of({
+test('dirTree.of', async (t) => {
+    await dirTree.of({
         'dir-1': {
             'dir-11': 0,
             'dir-12': 0,
@@ -80,43 +83,43 @@ test('dirTree.of', (t) => {
         t.equal(trees[1].name, 'dir-12');
         t.equal(trees[2].name, 'dir-13');
         t.equal(trees[3].name, 'dir-2');
-    }).catch(t.error).then(t.end);
+    });
 });
 
-test('Directory#toString', (t) => {
-    dirTree('./', true).then((tree) => {
+test('Directory#toString', async (t) => {
+    await dirTree('./', true).then((tree) => {
         let sep = path.sep;
         t.equal(tree.toString(), `
-${process.cwd()}${sep}
-├── dir-1${sep}
-│   ├── dir-11${sep}
-│   │   └── file-11-1.txt
-│   ├── dir-12${sep}
-│   ├── dir-13${sep}
-│   └── file-1-1.txt
-├── dir-2${sep}
-│   └── file-2-1.txt
-├── file-1.txt
-└── file-2.txt
-        `.trim().replace(/\n/g, EOL));
-    }).catch(t.error).then(t.end);
+            ${process.cwd()}${sep}
+            ├── dir-1${sep}
+            │   ├── dir-11${sep}
+            │   │   └── file-11-1.txt
+            │   ├── dir-12${sep}
+            │   ├── dir-13${sep}
+            │   └── file-1-1.txt
+            ├── dir-2${sep}
+            │   └── file-2-1.txt
+            ├── file-1.txt
+            └── file-2.txt
+        `.replace(/^\n|\n +$/g, '').replace(/^ +/gm, '').replace(/\n/g, EOL));
+    });
 });
 
-test('Directory#getDirectories', (t) => {
-    dirTree('./', true).then((tree) => {
+test('Directory#getDirectories', async (t) => {
+    await dirTree('./', true).then((tree) => {
         let dirNames = [path.basename(process.cwd()), 'dir-1', 'dir-11', 'dir-12', 'dir-13', 'dir-2'];
         let getDirName = (dir) => dir.name;
         t.deepEqual(tree.getDirectories().map(getDirName), dirNames);
         t.deepEqual(tree.getDirectories(false).map(getDirName), dirNames.slice(1));
-    }).catch(t.error).then(t.end);
+    });
 });
 
-test('Directory#getFiles', (t) => {
-    dirTree('./', true).then((tree) => {
+test('Directory#getFiles', async (t) => {
+    await dirTree('./', true).then((tree) => {
         let fileNames = ['file-1.txt', 'file-2.txt', 'file-1-1.txt', 'file-11-1.txt', 'file-2-1.txt'];
         let getFileName = (file) => file.name;
         t.deepEqual(tree.getFiles().map(getFileName), fileNames);
-    }).catch(t.error).then(t.end);
+    });
 });
 
 test.onFinish(mock.restore);
